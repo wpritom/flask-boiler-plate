@@ -1,22 +1,20 @@
 from flask import Blueprint, request
 from flask.views import MethodView
-
+from flaskAPP.extension import send_response
 
 web = Blueprint('web', __name__)
 
-# @web.route("/")
-# def index():
-#     return {"msg": "this is web"}
+
 
 
 class Index(MethodView):
     init_every_request = False
 
     def get(self, id=None):
-        return {"msg" : f"GET Request with value {id}", "url":request.url_root}
+        return send_response(f"GET Request with value {id}")
     
     def post(self):
-        return {"msg" : f"POST Request", "data": dict(request.form)}
+        return send_response(f"POST Request with value {id}", data=dict(request.form))
     
 
 
