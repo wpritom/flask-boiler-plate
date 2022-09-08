@@ -4,30 +4,27 @@ from flaskAPP.extension import send_response
 
 web = Blueprint('web', __name__)
 
-
-
-
 class Index(MethodView):
     init_every_request = False
 
-    def get(self, id=None):
-        return send_response(f"GET Request with value {id}")
+    def get(self, value=None):
+        return send_response(f"GET Request with value {value}")
     
     def post(self):
-        return send_response(f"POST Request with value {id}", data=dict(request.form))
+        return send_response(f"POST Request", data=dict(request.form))
     
 
+class User(MethodView):
+    init_every_request = False
 
-# def register_api(app, model, url):
-#     item = ItemAPI.as_view(f"{name}-item", model)
-#     group = GroupAPI.as_view(f"{name}-group", model)
-#     app.add_url_rule(f"/{name}/<int:id>", view_func=item)
-#     app.add_url_rule(f"/{name}/", view_func=group)
+    def get(self, value=None):
+        pass
 
-def register_view(app, method_view, name):
-    app.add_url_rule(f'/<id>', view_func = method_view.as_view(f"{name}_get"))
-    app.add_url_rule(f'/', view_func = method_view.as_view(f"{name}_post"))
+    def post(self):
+        pass
 
-register_view(web, Index, "Index")
-# web.add_url_rule('/<id>', view_func=Index.as_view("web_post"))
-# web.add_url_rule('/', view_func=Index.as_view("web"))
+def register_view(app, url_prefix=None, method_view=None, name=None):
+    app.add_url_rule(f'{url_prefix}/<value>', view_func = method_view.as_view(f"{name}_get"))
+    app.add_url_rule(f'{url_prefix}/', view_func = method_view.as_view(f"{name}_post"))
+
+register_view(web,'', Index, "Index")
