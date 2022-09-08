@@ -1,5 +1,12 @@
-### GET
+# Flask Boilerplate
 
+
+# How to run
+
+If `.flaskenv` is configured correctly then run the following command.
 ```
-http://127.0.0.1:5000/web/
+flask run
 ```
+
+# Tested Environments 
+Python 3.10.0
